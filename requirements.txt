@@ -1,0 +1,14 @@
+numpy<2
+onnx
+onnxruntime
+onnxsim
+onnxscript
+torch
+torchvision
+pyyaml
+decorator
+psutil
+flatbuffers
+sympy
+packaging
+ml_dtypes

@@ -1,0 +1,23 @@
+# .dockerignore
+
+qairt/
+data/
+models/
+*.dlc
+*.onnx
+*.pth
+
+configs/
+docs/
+scripts/
+src/
+tests/
+
+.codex
+.git/
+.gitignore
+README.md
+
+__pycache__/
+*.pyc
+*.pyo

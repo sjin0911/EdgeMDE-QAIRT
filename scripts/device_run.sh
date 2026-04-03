@@ -1,0 +1,1 @@
+# ADB Push -> qairt-net-run 실행 -> ADB Pull 자동화

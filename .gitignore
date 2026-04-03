@@ -1,0 +1,38 @@
+# Python cache and local virtual environments
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+build/
+dist/
+*.egg-info/
+.ipynb_checkpoints/
+
+# Editor / OS files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Local tooling metadata and logs
+.codex
+*.log
+
+# Local QAIRT SDK distribution
+/qairt/
+
+# Generated model artifacts
+/models/pytorch/
+/models/onnx/
+/models/dlc/
+
+# Input / output data and device execution dumps
+/data/raw/
+/data/inputs_raw_fmt/
+/data/outputs/
