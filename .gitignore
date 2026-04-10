@@ -36,3 +36,6 @@ Thumbs.db
 /data/raw/
 /data/inputs_raw_fmt/
 /data/outputs/
+
+# Model Origin repository
+/external/
