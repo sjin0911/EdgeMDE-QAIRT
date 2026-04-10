@@ -89,6 +89,7 @@ def export_model(
         "input_names": export_config["input_names"],
         "output_names": export_config["output_names"],
         "opset_version": export_config["opset_version"],
+        "dynamic_axes": None,
     }
     if "dynamo" in inspect.signature(torch.onnx.export).parameters:
         export_kwargs["dynamo"] = export_config.get("dynamo", False)
