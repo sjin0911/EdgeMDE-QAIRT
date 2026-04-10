@@ -1,9 +1,24 @@
-model_name: depth_anything_v2_vits
-encoder: vits
-input_size: 518
-checkpoint: models/pytorch/depth_anything_v2_vits.pth
-onnx_path: models/onnx/depth_anything_v2_vits_518.onnx
-dlc_path: models/dlc/depth_anything_v2_vits_518.dlc
+model:
+  name: depth_anything_v2_vits
+  params:
+    encoder: vits
+    checkpoint_path: models/pytorch/depth_anything_v2_vits.pth
+
+input:
+  shape: [1, 3, 518, 518]
+  seed: 0
+
+export:
+  input_names: ["input"]
+  output_names: ["output"]
+  opset_version: 13
+  dynamo: false
+  output_path: models/onnx/depth_anything_v2_vits_518.onnx
+
+validation:
+  rtol: 1e-3
+  atol: 1e-3
+
 raw_input_dir: data/inputs_raw_fmt
 output_dir: data/outputs
 backend: htp
