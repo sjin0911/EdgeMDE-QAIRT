@@ -25,7 +25,7 @@ This DLC is a DSP-compatible approximation of the original Depth Anything V2 mod
 
 The final QuickGELU DSP output is visually close to the original CPU depth structure and numerically much better than the earlier ReLU and SiLU DSP-compatible trials.
 
-![QuickGELU DSP depth map](data/outputs/device_dsp/depth_anything_v2_vits_quick_gelu_bias8/dechirico_depth_device_dsp_quick_gelu_bias8.png)
+![QuickGELU DSP depth map](docs/images/depth_anything_v2_sm8250/dechirico_depth_device_dsp_quick_gelu_bias8.png)
 
 ## Target Backend: DSP, Not HTP
 
@@ -172,7 +172,7 @@ The following image compares four outputs from the same input. From left to righ
 3. DSP-compatible SiLU variant
 4. DSP-compatible QuickGELU variant
 
-![Original CPU vs DSP activation variants](data/outputs/device_dsp/depth_anything_v2_vits_quick_gelu_bias8/compare_cpu_original_relu_silu_quick_gelu.png)
+![Original CPU vs DSP activation variants](docs/images/depth_anything_v2_sm8250/compare_cpu_original_relu_silu_quick_gelu.png)
 
 The QuickGELU output preserves the global foreground/background depth structure much better than the ReLU and SiLU trials. It is not identical to the original model, but it is the best DSP-compatible approximation produced in this debugging pass.
 
