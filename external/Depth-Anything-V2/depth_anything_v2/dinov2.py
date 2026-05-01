@@ -23,6 +23,11 @@ from .dinov2_layers import Mlp, PatchEmbed, SwiGLUFFNFused, MemEffAttention, Nes
 logger = logging.getLogger("dinov2")
 
 
+class QuickGELU(nn.Module):
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        return x * torch.sigmoid(1.702 * x)
+
+
 def named_apply(fn: Callable, module: nn.Module, name="", depth_first=True, include_root=False) -> nn.Module:
     if not depth_first and include_root:
         fn(module=module, name=name)
@@ -395,18 +400,32 @@ def vit_giant2(patch_size=16, num_register_tokens=0, **kwargs):
     return model
 
 
-def DINOv2(model_name):
+def DINOv2(model_name, act_layer=nn.GELU):
     model_zoo = {
         "vits": vit_small, 
         "vitb": vit_base, 
         "vitl": vit_large, 
         "vitg": vit_giant2
     }
+
+    if isinstance(act_layer, str):
+        act_layer_name = act_layer.lower()
+        if act_layer_name == "gelu":
+            act_layer = nn.GELU
+        elif act_layer_name == "relu":
+            act_layer = nn.ReLU
+        elif act_layer_name == "silu":
+            act_layer = nn.SiLU
+        elif act_layer_name == "quick_gelu":
+            act_layer = QuickGELU
+        else:
+            raise ValueError(f"Unsupported DINOv2 activation: {act_layer}")
     
     return model_zoo[model_name](
         img_size=518,
         patch_size=14,
         init_values=1.0,
+        act_layer=act_layer,
         ffn_layer="mlp" if model_name != "vitg" else "swiglufused",
         block_chunks=0,
         num_register_tokens=0,

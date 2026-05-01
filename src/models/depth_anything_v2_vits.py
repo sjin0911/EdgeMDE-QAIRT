@@ -10,7 +10,7 @@ from depth_anything_v2.dpt import DepthAnythingV2
 
 
 class DepthAnythingV2Wrapper(nn.Module):
-    def __init__(self, encoder="vits", checkpoint_path=None):
+    def __init__(self, encoder="vits", checkpoint_path=None, dinov2_act_layer="gelu"):
         super().__init__()
 
         model_configs = {
@@ -19,7 +19,10 @@ class DepthAnythingV2Wrapper(nn.Module):
             "vitl": {"encoder": "vitl", "features": 256, "out_channels": [256, 512, 1024, 1024]},
         }
 
-        self.model = DepthAnythingV2(**model_configs[encoder])
+        self.model = DepthAnythingV2(
+            **model_configs[encoder],
+            dinov2_act_layer=dinov2_act_layer,
+        )
 
         if checkpoint_path is not None:
             state_dict = torch.load(checkpoint_path, map_location="cpu")

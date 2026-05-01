@@ -48,9 +48,12 @@ class Attention(nn.Module):
 
     def forward(self, x: Tensor) -> Tensor:
         B, N, C = x.shape
-        qkv = self.qkv(x).reshape(B, N, 3, self.num_heads, C // self.num_heads).permute(2, 0, 3, 1, 4)
-
-        q, k, v = qkv[0] * self.scale, qkv[1], qkv[2]
+        head_dim = C // self.num_heads
+        q, k, v = self.qkv(x).chunk(3, dim=-1)
+        q = q.reshape(B, N, self.num_heads, head_dim).permute(0, 2, 1, 3)
+        k = k.reshape(B, N, self.num_heads, head_dim).permute(0, 2, 1, 3)
+        v = v.reshape(B, N, self.num_heads, head_dim).permute(0, 2, 1, 3)
+        q = q * self.scale
         attn = q @ k.transpose(-2, -1)
 
         attn = attn.softmax(dim=-1)
@@ -79,5 +82,3 @@ class MemEffAttention(Attention):
         x = self.proj(x)
         x = self.proj_drop(x)
         return x
-
-        

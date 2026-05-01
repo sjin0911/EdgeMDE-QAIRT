@@ -157,7 +157,8 @@ class DepthAnythingV2(nn.Module):
         features=256, 
         out_channels=[256, 512, 1024, 1024], 
         use_bn=False, 
-        use_clstoken=False
+        use_clstoken=False,
+        dinov2_act_layer=nn.GELU,
     ):
         super(DepthAnythingV2, self).__init__()
         
@@ -169,7 +170,7 @@ class DepthAnythingV2(nn.Module):
         }
         
         self.encoder = encoder
-        self.pretrained = DINOv2(model_name=encoder)
+        self.pretrained = DINOv2(model_name=encoder, act_layer=dinov2_act_layer)
         
         self.depth_head = DPTHead(self.pretrained.embed_dim, features, use_bn, out_channels=out_channels, use_clstoken=use_clstoken)
     
