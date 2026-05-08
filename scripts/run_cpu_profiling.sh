@@ -9,14 +9,14 @@ echo "Running QNN CPU Profiling on Host (Docker)"
 echo "====================================="
 
 # 기존 출력 폴더가 있다면 삭제 후 재생성 (깔끔한 결과 저장을 위해)
-OUTPUT_DIR="/workspace/data/outputs/device_cpu/depth_anything_v2_vits_quick_gelu_bias8"
+OUTPUT_DIR="/workspace/data/outputs/host_cpu/depth_anything_v2_vits_392_base_quantized_bias8"
 rm -rf $OUTPUT_DIR
 mkdir -p $OUTPUT_DIR
 
 qnn-net-run \
   --backend $QAIRT_ROOT/lib/x86_64-linux-clang/libQnnCpu.so \
   --model $QAIRT_ROOT/lib/x86_64-linux-clang/libQnnModelDlc.so \
-  --dlc_path /workspace/models/dlc/depth_anything_v2_vits_518_dsp_gatherfix_quick_gelu_quantized_bias8.dlc \
+  --dlc_path /workspace/models/dlc/depth_anything_v2_vits_392_base_quantized_bias8.dlc \
   --input_list /workspace/data/inputs_raw_fmt/depth_anything_v2_vits/input_list_host.txt \
   --output_dir $OUTPUT_DIR \
   --profiling_level detailed \
